@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For You</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    /* Background: soft violet to sage gradient */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Press Start 2P', monospace;
+      background: linear-gradient(135deg, #dcd0ff 0%, #d3f4d1 100%);
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+      width: 320px;
+    }
+
+    .click-text {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 24px;
+      color: #222;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px #fff;
+    }
+
+    /* Envelope */
+    #envelope {
+      width: 300px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    /* Shake animation */
+    .shake {
+      animation: shake 0.8s infinite;
+    }
+
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(3deg); }
+      50% { transform: rotate(-3deg); }
+      75% { transform: rotate(3deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    /* QR Code */
+    #qr {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 1s ease, opacity 1s ease;
+      opacity: 0;
+      width: 180px;
+    }
+
+    .show {
+      opacity: 1;
+      transform: translate(-50%, -150%) scale(1.2);
+    }
+
+    /* Scan me text */
+    #scanText {
+      opacity: 0;
+      font-size: 18px;
+      margin-top: 10px;
+      transition: opacity 1s ease;
+    }
+
+    #scanText.show {
+      opacity: 1;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="click-text">CLICK ME</div>
+  <img id="envelope" src="closed.png" class="shake" onclick="openEnvelope()">
+  <img id="qr" src="qr.png" alt="QR Code">
+  <div id="scanText">SCAN ME!</div>
+</div>
+
+<script>
+function openEnvelope() {
+  const envelope = document.getElementById("envelope");
+  const qr = document.getElementById("qr");
+  const scanText = document.getElementById("scanText");
+
+  // Swap envelope image
+  envelope.src = "open.png";
+
+  // Stop shaking
+  envelope.classList.remove("shake");
+
+  // Animate QR code popping up
+  qr.classList.add("show");
+
+  // Fade in "SCAN ME!"
+  setTimeout(() => {
+    scanText.classList.add("show");
+  }, 800); // delay slightly after QR starts animating
+}
+</script>
+
+</body>
+</html>
