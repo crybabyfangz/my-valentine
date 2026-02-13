@@ -5,7 +5,7 @@
   <title>For You</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    /* Background: soft violet to sage gradient */
+    /* Solid white background */
     body {
       margin: 0;
       height: 100vh;
@@ -13,28 +13,28 @@
       justify-content: center;
       align-items: center;
       font-family: 'Press Start 2P', monospace;
-      background: linear-gradient(135deg, #dcd0ff 0%, #d3f4d1 100%);
+      background: #ffffff;
       overflow: hidden;
     }
 
     .container {
       position: relative;
       text-align: center;
-      width: 320px;
+      width: 380px; /* slightly wider for bigger envelope */
     }
 
     .click-text {
       font-family: 'Press Start 2P', monospace;
-      font-size: 24px;
+      font-size: 28px; /* bigger */
       color: #222;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       letter-spacing: 2px;
-      text-shadow: 1px 1px #fff;
+      text-shadow: 1px 1px #ccc;
     }
 
     /* Envelope */
     #envelope {
-      width: 300px;
+      width: 340px; /* bigger envelope */
       cursor: pointer;
       transition: transform 0.3s ease;
     }
@@ -60,19 +60,20 @@
       transform: translate(-50%, -50%) scale(0);
       transition: transform 1s ease, opacity 1s ease;
       opacity: 0;
-      width: 180px;
+      width: 220px; /* bigger QR */
     }
 
     .show {
       opacity: 1;
-      transform: translate(-50%, -150%) scale(1.2);
+      transform: translate(-50%, -180%) scale(1.5); /* bigger zoom */
     }
 
     /* Scan me text */
     #scanText {
       opacity: 0;
-      font-size: 18px;
-      margin-top: 10px;
+      font-size: 20px; /* slightly bigger */
+      margin-top: 15px;
+      text-align: center;
       transition: opacity 1s ease;
     }
 
@@ -106,10 +107,10 @@ function openEnvelope() {
   // Animate QR code popping up
   qr.classList.add("show");
 
-  // Fade in "SCAN ME!"
+  // Fade in "SCAN ME!" centered
   setTimeout(() => {
     scanText.classList.add("show");
-  }, 800); // delay slightly after QR starts animating
+  }, 800);
 }
 </script>
 
