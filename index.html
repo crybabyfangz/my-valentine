@@ -23,7 +23,6 @@
       width: 380px;
     }
 
-    /* Pixelated "CLICK ME" */
     .click-text {
       font-size: 28px;
       color: #222;
@@ -38,10 +37,9 @@
       cursor: pointer;
       transition: transform 0.3s ease;
       position: relative;
-      z-index: 1; /* behind QR */
+      z-index: 1; /* envelope behind QR */
     }
 
-    /* Shake animation */
     .shake {
       animation: shake 0.8s infinite;
     }
@@ -62,18 +60,19 @@
       transform: translate(-50%, -50%) scale(0);
       width: 220px;
       z-index: 2; /* in front of envelope */
+      opacity: 1; /* always visible */
     }
 
-    /* QR Animation: up then slightly down, stays visible */
-    @keyframes qrPopBounce {
+    /* QR animation */
+    @keyframes qrPop {
       0% { transform: translate(-50%, -50%) scale(0); }
-      40% { transform: translate(-50%, -130%) scale(1.4); }
-      60% { transform: translate(-50%, -110%) scale(1.6); }
-      100% { transform: translate(-50%, -110%) scale(1.6); }
+      40% { transform: translate(-50%, -120%) scale(1.4); }
+      70% { transform: translate(-50%, -110%) scale(1.6); }
+      100% { transform: translate(-50%, -115%) scale(1.6); } /* final position, visible */
     }
 
     .qr-animate {
-      animation: qrPopBounce 1s forwards;
+      animation: qrPop 1s forwards;
     }
 
     /* Scan me text */
@@ -84,12 +83,13 @@
       text-align: center;
       transition: opacity 1s ease;
       position: relative;
-      z-index: 3; /* above everything */
+      z-index: 3; /* always above */
     }
 
     #scanText.show {
       opacity: 1;
     }
+
   </style>
 </head>
 <body>
@@ -102,6 +102,29 @@
 </div>
 
 <script>
+function openEnvelope() {
+  const envelope = document.getElementById("envelope");
+  const qr = document.getElementById("qr");
+  const scanText = document.getElementById("scanText");
+
+  // Swap envelope image
+  envelope.src = "open.png";
+
+  // Stop shaking
+  envelope.classList.remove("shake");
+
+  // Animate QR code in front of envelope
+  qr.classList.add("qr-animate");
+
+  // Fade in "SCAN ME!" text after QR pops
+  setTimeout(() => {
+    scanText.classList.add("show");
+  }, 1000);
+}
+</script>
+
+</body>
+</html><script>
 function openEnvelope() {
   const envelope = document.getElementById("envelope");
   const qr = document.getElementById("qr");
