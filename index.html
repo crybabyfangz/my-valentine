@@ -5,7 +5,6 @@
   <title>For You</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    /* Gradient background */
     body {
       margin: 0;
       height: 100vh;
@@ -13,7 +12,7 @@
       justify-content: center;
       align-items: center;
       font-family: 'Press Start 2P', monospace;
-      background: linear-gradient(135deg, #c9b3ff, #d6e7c3); /* violet → soft sage */
+      background: linear-gradient(135deg, #c9b3ff, #d6e7c3);
       overflow: hidden;
     }
 
@@ -31,13 +30,12 @@
       text-shadow: 1px 1px #ccc;
     }
 
-    /* Envelope */
     #envelope {
       width: 340px;
       cursor: pointer;
       transition: transform 0.3s ease;
       position: relative;
-      z-index: 1; /* envelope behind QR */
+      z-index: 1;
     }
 
     .shake {
@@ -52,30 +50,27 @@
       100% { transform: rotate(0deg); }
     }
 
-    /* QR Code */
     #qr {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
       width: 220px;
-      z-index: 2; /* in front of envelope */
-      opacity: 1; /* always visible */
+      z-index: 2;
+      opacity: 1;
     }
 
-    /* QR animation */
     @keyframes qrPop {
       0% { transform: translate(-50%, -50%) scale(0); }
       40% { transform: translate(-50%, -120%) scale(1.4); }
       70% { transform: translate(-50%, -110%) scale(1.6); }
-      100% { transform: translate(-50%, -115%) scale(1.6); } /* final position, visible */
+      100% { transform: translate(-50%, -115%) scale(1.6); }
     }
 
     .qr-animate {
       animation: qrPop 1s forwards;
     }
 
-    /* Scan me text */
     #scanText {
       opacity: 0;
       font-size: 20px;
@@ -83,7 +78,7 @@
       text-align: center;
       transition: opacity 1s ease;
       position: relative;
-      z-index: 3; /* always above */
+      z-index: 3;
     }
 
     #scanText.show {
@@ -102,6 +97,23 @@
 </div>
 
 <script>
+function openEnvelope() {
+  const envelope = document.getElementById("envelope");
+  const qr = document.getElementById("qr");
+  const scanText = document.getElementById("scanText");
+
+  envelope.src = "open.png";
+  envelope.classList.remove("shake");
+  qr.classList.add("qr-animate");
+
+  setTimeout(() => {
+    scanText.classList.add("show");
+  }, 1000);
+}
+</script>
+
+</body>
+</html><script>
 function openEnvelope() {
   const envelope = document.getElementById("envelope");
   const qr = document.getElementById("qr");
